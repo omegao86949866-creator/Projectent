@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assistir</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/assistir.css">
+    <style type="text/css">
+*{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial,"Time New Roman",sans-serif;
+    background-color: rgb(22, 22, 22);
+    color: #e8e9e7;
+}
+
+.main{
+    width: 90%;
+    margin: auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .video{
+  position:absolute;
+  bottom:20px;
+}
+
+.main iframe{
+    width: 50%;
+    height: 50%;
+}
+
+
+.announce{
+position:absolute;
+top:10px;
+ width: 480px;
+ height: 60px;
+}
+
+  .mobileShow {display: none;}
+
+  /* Smartphone Portrait and Landscape */
+  @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 480px){ 
+      .mobileShow {display: inline;}
+  }
+  .mobileHide { display: inline; }
+
+  /* Smartphone Portrait and Landscape */
+  @media only screen
+    and (min-device-width : 320px)
+    and (max-device-width : 480px){
+     .mobileHide { display: none;}
+  }
+    </style>
+</head>
+<body>
+   <div class="main">
+   <div id="announce">
+   <script>
+  atOptions = {
+    'key' : '1b3cb0b610aae2d5d29bb7aeb807eaca',
+    'format' : 'iframe',
+    'height' : 60,
+    'width' : 468,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/1b3cb0b610aae2d5d29bb7aeb807eaca/invoke.js"></script>
+   </div>
+   
+
+  
+
+    <iframe src="<%= dados.video %>" frameborder="0" class="video"></iframe>
+   </div> 
+</body>
+</html>
