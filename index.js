@@ -1,12 +1,17 @@
 const express = require('express');
 const cheerio = require('cheerio');
 const axios = require('axios');
+const Dorama = require('./classes/doramas');
+const Anime = require('./classes/animes');
 const path = require('path');
 const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
+
+const  doramas = new Dorama(axios,cheerio)
+const animes = new Anime(axios,cheerio); 
 
 
 async function fazerScraping() {
@@ -287,6 +292,26 @@ app.get('/doramas', async (req, res) => {
   }
   const dados = await informe();
   res.render('doramas', { dados: dados })
+});
+
+// Doramas
+app.get('/doramas', async (req, res) => {
+    const dados = await doramas.listarDoramas();
+res.render('doramas',{dados:dados})
+});
+
+// Generos
+app.get('/generos', async (req, res) => {
+    const dados = await animes.listarGeneros();
+    console.log(dados)
+res.render('categories',{dados:dados})
+});
+
+app.get('/genero/:params', async (req, res) => {
+    const parametre = req.params
+    const dados = await animes.filtrarGenero(parametre.params);
+    console.log(dados)
+res.render('resultCategorie',{dados:dados})
 });
 
 app.listen(3000, () => {
