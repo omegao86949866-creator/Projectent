@@ -73,7 +73,7 @@ body{
   text-transform: capitalize;
   padding: 10px 6px;
   color: #e8e9e7;
-  font-size: 1.5vw;
+  font-size: clamp(10px,1.5vw,20px);
   transition: background-color .50s ease-in-out;
 
 
@@ -344,6 +344,7 @@ hr{
             <ul id="desktop-bar">
                 <li><a href="/">Pagina inicial</a></li>
                 <li><a href="/lancamentos">Lançamentos</a></li>
+                <li><a href="/generos">Gêneros</a></li>
                 <li><a href="/search">Pesquisar</a></li>
                 <li><a href="/sobre">Sobre</a></li>
             </ul>
@@ -356,6 +357,7 @@ hr{
                 <li><form action="/search"><input type="search" name="title"><input type="submit" value="Pesquisar"></form></li>
                 <li><a href="/">Pagina inicial</a></li>
                 <li><a href="/lancamentos">Lançamentos</a></li>
+                <li><a href="/generos">Gêneros</a></li>
                 <li><a href="/sobre">Sobre</a></li>
             </ul>
         </div>
@@ -375,6 +377,7 @@ hr{
         <h1>Projectent</h1>
         <p>Este site não utiliza o proprio servidor para hospedar os videos.Para melhor experiência no Android recomendamos usar o navegador UC BROWSER ou algo equivalente.</p>
         <p>Siga as nossas páginas do Facebook para mais informações.</p>
+        <p>Nossos outros projectos <a href="/doramas">Doramas</a></p>
     </div>
 
     <script>
