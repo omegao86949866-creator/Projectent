@@ -1,1 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://imglur.com/file/r7vlDV">
+    <title>Projectent Animes - Categorias</title>
+    
+    <style>
+        *{
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+body{
+    font-family: Arial,"Time New Roman",sans-serif;
+    background-color: rgb(22, 22, 22);
+    color: #e8e9e7;
+}
+
+ .header {
+    width: 100%;
+    height: 100px;
+    background-color: rgba(29, 29, 29, 0.945);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 9;
+    }
+
+    .header .logo {
+    width: 20%;
+    height: 75%;
+    display: flex;
+    margin-left: 20px;
+    }
+
+    .header .logo a {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    }
+
+    .header .logo a img {
+    width: 100%;
+    }
+
+    .header .navbar {
+    margin-right: 35px;
+    display: flex;
+    }
+
+    .header .navbar ul {
+    list-style: none;
+    display: flex;
+    }
+
+    .header .navbar ul li {
+    padding: 10px;
+    }
+
+    .header .navbar ul li a {
+    text-decoration: none;
+    text-transform: capitalize;
+    padding: 10px 6px;
+    color: #e8e9e7;
+    font-size: clamp(10px,1.5vw,20px);
+    transition: background-color .50s ease-in-out;
+
+
+    }
+
+    .header .navbar ul li a:hover {
+    background-color: #4ae2e7;
+    color: #000;
+    }
+
+    #mobile {
+    display: none;
+    }
+
+    #mobile li:hover {
+    background-color: #3d3d3d;
+    }
+
+    .menubar {
+    background-color: rgba(29, 29, 29, 0.767);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    display: none;
+    }
+
+    .showmenu {
+    display: block;
+    }
+
+    .menubar ul {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 90%;
+    height: 100vh;
+    list-style: none;
+    padding: 12px 0px;
+    background-color: #141414;
+
+    }
+
+    .menubar ul li {
+    background-color: #141414;
+    padding: 10px 8px;
+    }
+
+    .menubar ul li a {
+    color: #e8e9e7;
+    text-decoration: none;
+    font-size: 3.4vw;
+    padding: 12px 6px;
+    display: block;
+    transition: all 1s ease;
+    }
+
+    .menubar ul li a:hover {
+    background-color: #4ae2e7;
+    color: #000;
+    }
+
+    .menubar i {
+    font-size: 5vw;
+    position: absolute;
+    top: 15px;
+    left: 5px;
+    z-index: 9;
+    }
+
+    .menubar ul li form input[type="search"] {
+    background-color: transparent;
+    border: 1px solid #e8e9e7;
+    border-radius: 4px;
+    color: #e8e9e7;
+    width: 65%;
+    }
+
+    .menubar ul li form input[type="submit"] {
+    background-color: #0b6100;
+    color: #e8e9e7;
+    margin-left: 5px;
+    width: 30%;
+    font-size: 3.4vw
+    }
+
+    .menubar ul li form input {
+    padding: 8px;
+    }
+
+    .main{
+    width: 95%;
+    margin: 40px auto;
+}
+
+.main .content{
+    width: 100%;
+}
+.main .content h2{
+    position: relative;
+    background-color: #0b6100;
+    line-height: 8vh;
+    padding-left: 16px;
+    margin-bottom: 30px;
+    font-size: 4vw;
+}
+.main .content h2::before{
+    content: "";
+    background-color: #f1f1f1;
+    height: 6.5vh;
+    padding: 6px;
+    position: absolute;
+    left: 0;
+}
+
+
+.main .content .grid-box{
+    width: 99%;
+    margin: auto;
+    border: 1px solid #010a00;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    place-content: center;
+    gap: 50px;
+    padding: 12px;
+
+}
+
+.main .content .grid-box .box{
+    background-color: #010a00;
+    border: 1px solid #010a00;
+    width: 20vw;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .content .grid-box .box a{
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    width: 100%;
+    text-align: center;
+    line-height: 9.5em;
+
+}
+
+
+    .close-style{
+        font-size: 24px;
+        z-index: 3;
+    }
+
+    hr {
+    border: 1px solid #fff;
+    width: 95%;
+    margin: auto;
+    }
+
+    .footer {
+    text-align: center;
+    }
+
+    .footer h1 {
+    line-height: 80px;
+    font-size: clamp(12px,5vw,48px);
+
+    }
+
+    .footer p {
+    line-height: 40px;
+    font-size: clamp(12px,3.5vw,40px);
+    }
+    </style>
+</head>
+<body>
+   <div class="header">
+        <div class="logo">
+            <a href="/">
+                <img src='https://imglur.com/get/XN4hTb.png' alt='XN4hTb'>
+            </a>
+        </div>
+        <div class="navbar">
+            <ul id="mobile">
+                <li id="ico-menu"><i class="fa-solid fa-bars"></i></li>
+            </ul>
+            <ul id="desktop-bar">
+                <li><a href="/">Pagina inicial</a></li>
+                <li><a href="/lancamentos">Lançamentos</a></li>
+                <li><a href="/generos">Gêneros</a></li>
+                <li><a href="/search">Pesquisar</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+            </ul>
+        </div>
+        <div class="menubar">
+            <span class="close-style">
+            <i class="fa-solid fa-close"></i>
+            </span>
+
+             <ul>
+                <li><form action="/search"><input type="search" name="title"><input type="submit" value="Pesquisar"></form></li>
+                <li><a href="/">Pagina inicial</a></li>
+                <li><a href="/lancamentos">Lançamentos</a></li>
+                <li><a href="/generos">Gêneros</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+            </ul>
+        </div>
+    </div>
+<div class="main">
+    <div class="content">
+        <h2>Categoria</h2>
+        <div class="grid-box">
+              <% dados.forEach(item => { %>
+            <div class="box">
+                <a href="<%= item.url %>"><%= item.title %></a>
+            </div>
+                <% }) %>
+        </div>
+    </div>
+</div>
+
+    <hr>
+    
+    <div class="footer">
+        <h1>Projectent</h1>
+        <p>Este site não utiliza o proprio servidor para hospedar os videos.</p>
+        <p>Siga as nossas páginas do Facebook para mais informações.</p>
+    </div>
+    
+    <script>
+const menu = document.querySelector('#ico-menu')
+const menuBar = document.querySelector('.menubar')
+const faclose = document.querySelector('.close-style')
+
+menu.addEventListener('click',()=>{
+    menuBar.classList.toggle('showmenu')
+
+})
+
+faclose.addEventListener('click',()=>{
+    menuBar.classList.toggle('showmenu')
+
+})
+    </script>
+</body>
+</html>
