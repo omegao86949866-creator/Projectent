@@ -3,295 +3,35 @@ const cheerio = require('cheerio');
 const axios = require('axios');
 const Dorama = require('./classes/doramas');
 const Anime = require('./classes/animes');
-const path = require('path');
 const app = express();
-
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.set('view engine', 'ejs');
 
+app.use(express.static('public'))
+//et muro = new scrap(axios,cheerio)
 const  doramas = new Dorama(axios,cheerio)
 const animes = new Anime(axios,cheerio); 
 
 
-async function fazerScraping() {
-  try {
-    // 1. Busca o HTML
-    const { data } = await axios.get('https://animesdigital.org/home');
-    // 2. Carrega o HTML no Cheerio
-    const $ = cheerio.load(data);
-    // 3. Extrai dados usando seletores CSS
-    const dados = $.extract({
-      titulo: ['div.itemE a[title] div.title span.title_anime'],
-      epsisodio: ['div.itemE a[title] div.title span.number'],
-      img: [{
-        selector: 'div.itemE a[title] div.thumb img[title]',
-        value: 'src'
-      }],
-      url: [{
-        selector: 'div.itemE a[title]',
-        value: 'href'
-      }],
-    });
-
-    let episodes = []
-    let estruture = {}
-    for (let i = 8; i <= dados.titulo.length - 1; i++) {
-      estruture = {
-        title: dados.titulo[i],
-        episode: dados.epsisodio[i],
-        src: dados.img[i],
-        url: dados.url[i]
-      };
-      episodes.push(estruture);
-      estruture = {}
-    }
-
-    return episodes;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 // Página inicial
 app.get('/', async (req, res) => {
-  const dados = await fazerScraping();
-  res.render('index', { dados: dados });
+    const dados = await animes.listarUtilmosEpisodios();
+    console.log(dados)
+res.render('index',{dados:dados})
 });
 
-//lancamentos
+// lancamentos
 app.get('/lancamentos', async (req, res) => {
-  async function releases() {
-    try {
-      // 1. Busca o HTML
-      const { data } = await axios.get('https://animesdigital.org/home');
-      // 2. Carrega o HTML no Cheerio
-      const $ = cheerio.load(data);
-      // 3. Extrai dados usando seletores CSS
-      const dados = $.extract({
-        titulo: ['div.itemE a[title] div.title span.title_anime'],
-        epsisodio: ['div.itemE a[title] div.title span.number'],
-        img: [{
-          selector: 'div.itemE a[title] div.thumb img[title]',
-          value: 'src'
-        }],
-        url: [{
-          selector: 'div.itemE a[title]',
-          value: 'href'
-        }],
-      });
-
-      let episodes = []
-      let estruture = {}
-      for (let i = 0; i <= 7; i++) {
-        estruture = {
-          title: dados.titulo[i],
-          episode: dados.epsisodio[i],
-          src: dados.img[i],
-          url: dados.url[i]
-        };
-        episodes.push(estruture);
-        estruture = {}
-      }
-
-
-      return episodes;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const dados = await releases();
-
-  res.render('lancamentos', { dados: dados });
+    const dados = await animes.listarAnimesEmLancamentos();
+res.render('index',{dados:dados})
 });
 
-
-
-//search
-app.get('/search', async (req, res) => {
-  const requisition = req.query.title;
-  let newReq
-  if (requisition) {
-    newReq = requisition.replace(/ /g, '+');
-
-  } else {
-    newReq = '';
-
-  }
-  console.log(newReq)
-  async function search(title) {
-    try {
-      // 1. Busca o HTML
-      const { data } = await axios.get('https://animesdigital.org/search/' + title);
-      // 2. Carrega o HTML no Cheerio
-      const $ = cheerio.load(data);
-      // 3. Extrai dados usando seletores CSS
-      const dados = $.extract({
-        titulo: ['div.itemA a[title] div.title span.title_anime'],
-        epsisodio: ['div.itemA a[title] div.title span.number'],
-        img: [{
-          selector: 'div.itemA a[title] div.thumb img[title]',
-          value: 'src'
-        }],
-        url: [{
-          selector: 'div.itemA a[title]',
-          value: 'href'
-        }],
-      });
-
-      let episodes = []
-      let estruture = {}
-      for (let i = 0; i <= dados.titulo.length - 1; i++) {
-        estruture = {
-          title: dados.titulo[i],
-          episode: dados.epsisodio[i],
-          src: dados.img[i],
-          url: dados.url[i]
-        };
-        episodes.push(estruture);
-        estruture = {}
-      }
-
-      return episodes;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const dados = await search(newReq);
-
-  res.render('searchPage', { dados: dados })
-});
-
-// assistir
-app.get('/assistir', async (req, res) => {
-  const url = req.query.url
-  console.log(url)
-
-  async function assistirvideo(url) {
-    try {
-      // 1. Busca o HTML
-      const { data } = await axios.get(url);
-      // 2. Carrega o HTML no Cheerio
-      const $ = cheerio.load(data);
-      // 3. Extrai dados usando seletores CSS
-      const dados = $.extract({
-        video: {
-          selector: 'iframe.metaframe.rptss.no-lazy',
-          value: 'src'
-        },
-      });
-
-      return dados;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const dados = await assistirvideo(url);
-
-
-  res.render('assistir', { dados: dados })
-});
-
-//info
+// info
 app.get('/info', async (req, res) => {
-  const requisition = req.query.url;
-  console.log(requisition)
-  async function informe(url) {
-    try {
-      // 1. Busca o HTML
-      const { data } = await axios.get(url);
-      // 2. Carrega o HTML no Cheerio
-      const $ = cheerio.load(data);
-      // 3. Extrai dados usando seletores CSS
-      const dados = $.extract({
-        titulo: ['div.dados h1'],
-        info: ['div.info'],
-        genre: ['div.genres div.genre'],
-        sinopse: 'div.sinopse',
-        epsisodio: ['div.title_anime'],
-        img: {
-          selector: 'div.poster img[title]',
-          value: 'src'
-        },
-        url: [{
-          selector: 'div.item_ep a',
-          value: 'href'
-        }],
-      });
-
-      let episodes = []
-      let estruture = {}
-      for (let i = 0; i <= dados.titulo.length - 1; i++) {
-        estruture = {
-          title: dados.titulo[i],
-          episode: dados.epsisodio[i],
-          src: dados.img[i],
-          url: dados.url[i]
-        };
-        episodes.push(estruture);
-        estruture = {}
-      }
-
-      return dados;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  const dados = await informe(requisition);
-  res.render('info', { dados: dados })
-});
-
-//sobre
-app.get('/sobre', (req, res) => {
-  res.render('sobre')
-
-});
-
-//doramas
-app.get('/doramas', async (req, res) => {
-
-  async function informe() {
-    try {
-      // 1. Busca o HTML
-      const { data } = await axios.get('https://doramasonline.org/br/generos/dublado/');
-      // 2. Carrega o HTML no Cheerio
-      const $ = cheerio.load(data);
-      // 3. Extrai dados usando seletores CSS
-      const dados = $.extract({
-        titulo: ['div.data h3 a'],
-        img: [{
-          selector: 'div.poster img',
-          value: 'src'
-        }],
-        url: [{
-          selector: 'div.data h3 a',
-          value: 'href'
-        }],
-      });
-
-      let episodes = []
-      let estruture = {}
-      for (let i = 8; i <= dados.titulo.length - 1; i++) {
-        estruture = {
-          title: dados.titulo[i],
-          episode: dados.epsisodio[i],
-          src: dados.img[i],
-          url: dados.url[i]
-        };
-        episodes.push(estruture);
-        estruture = {}
-      }
-
-      return episodes;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  const dados = await informe();
-  res.render('doramas', { dados: dados })
+    const url = req.query.url
+    console.log(url)
+    const dados = await animes.informe(url);
+res.render('info',{dados:dados})
 });
 
 // Doramas
@@ -314,6 +54,32 @@ app.get('/genero/:params', async (req, res) => {
 res.render('resultCategorie',{dados:dados})
 });
 
+//search
+app.get('/search',async(req, res) => {
+  const requisition = req.query.title;
+  let newReq = '';
+
+  if(!(requisition == undefined)){
+    newReq = requisition.replace(/ /g, '+');
+  }
+const dados = await animes.search(newReq);
+res.render('searchPage',{dados:dados})
+});
+
+//assistir
+app.get('/assistir',async(req, res) => {
+    const url = req.query.url
+
+const dados = await animes.assistirvideo(url);
+
+res.render('assistir',{dados:dados})
+});
+
+//sobre
+app.get('/sobre',(req,res)=>{
+    res.render('sobre')
+})
+
 app.listen(3000, () => {
-  console.log('Servidor rodando');
+    console.log('Servidor rodando');
 });
