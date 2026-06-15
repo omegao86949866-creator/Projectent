@@ -7,9 +7,6 @@
 
     <link rel="icon" href='https://imglur.com/get/r7vlDV.png'>
     
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/searchPage.css">
     <title>Projectent Animes - Pesquisar</title>
     <style>
         *{
@@ -23,6 +20,146 @@ body{
     font-family: Arial,"Time New Roman",sans-serif;
     background-color: rgb(22, 22, 22);
     color: #e8e9e7;
+}
+
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: rgba(29, 29, 29, 0.945);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 9;
+}
+
+.header .logo {
+  width: 20%;
+  height: 75%;
+  display: flex;
+  margin-left: 20px;
+}
+
+.header .logo a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.header .logo a img {
+  width: 100%;
+}
+
+.header .navbar {
+  margin-right: 35px;
+  display: flex;
+}
+
+.header .navbar ul {
+  list-style: none;
+  display: flex;
+}
+
+.header .navbar ul li {
+  padding: 10px;
+}
+
+.header .navbar ul li a {
+  text-decoration: none;
+  text-transform: capitalize;
+  padding: 10px 6px;
+  color: #e8e9e7;
+  font-size: clamp(10px,1.5vw,20px);
+  transition: background-color .50s ease-in-out;
+
+
+}
+
+.header .navbar ul li a:hover {
+  background-color: #4ae2e7;
+  color: #000;
+}
+
+#mobile {
+  display: none;
+}
+
+#mobile li:hover {
+  background-color: #3d3d3d;
+}
+
+.menubar {
+  background-color: rgba(29, 29, 29, 0.767);
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+  display: none;
+}
+
+.showmenu {
+  display: block;
+}
+
+.menubar ul {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  height: 100vh;
+  list-style: none;
+  padding: 12px 0px;
+  background-color: #141414;
+
+}
+
+.menubar ul li {
+  background-color: #141414;
+  padding: 10px 8px;
+}
+
+.menubar ul li a {
+  color: #e8e9e7;
+  text-decoration: none;
+  font-size: 3.4vw;
+  padding: 12px 6px;
+  display: block;
+  transition: all 1s ease;
+}
+
+.menubar ul li a:hover {
+  background-color: #4ae2e7;
+  color: #000;
+}
+
+.menubar i {
+  font-size: 5vw;
+  position: absolute;
+  top: 15px;
+  left: 5px;
+  z-index: 9;
+}
+
+.menubar ul li form input[type="search"] {
+  background-color: transparent;
+  border: 1px solid #e8e9e7;
+  border-radius: 4px;
+  color: #e8e9e7;
+  width: 65%;
+}
+
+.menubar ul li form input[type="submit"] {
+  background-color: #0b6100;
+  color: #e8e9e7;
+  margin-left: 5px;
+  width: 30%;
+  font-size: 3.4vw
+}
+
+.menubar ul li form input {
+  padding: 8px;
 }
 
 .main{
@@ -284,6 +421,7 @@ hr{
             <ul id="desktop-bar">
                 <li><a href="/">Pagina inicial</a></li>
                 <li><a href="/lancamentos">Lançamentos</a></li>
+                <li><a href="/generos">Gêneros</a></li>
                 <li><a href="/search">Pesquisar</a></li>
                 <li><a href="/sobre">Sobre</a></li>
             </ul>
@@ -296,6 +434,7 @@ hr{
                 <li><form action="/search"><input type="search" name="title"><input type="submit" value="Pesquisar"></form></li>
                 <li><a href="/">Pagina inicial</a></li>
                 <li><a href="/lancamentos">Lançamentos</a></li>
+                <li><a href="/generos">Gêneros</a></li>
                 <li><a href="/sobre">Sobre</a></li>
             </ul>
         </div>
