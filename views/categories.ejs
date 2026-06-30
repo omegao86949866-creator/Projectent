@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://imglur.com/get/r7vlDV.png">
+  <link rel="stylesheet" href="/css/base.css">
+  <title>Projectent Animes - Categorias</title>
+  <style>
+    .grid-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      padding: 8px 0;
+    }
+
+    .box {
+      background-color: #1a2a1a;
+      border: 1px solid #0b6100;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 80px;
+      transition: background-color 0.25s, transform 0.2s;
+    }
+
+    .box:hover {
+      background-color: #0b6100;
+      transform: translateY(-2px);
+    }
+
+    .box a {
+      text-decoration: none;
+      color: #e8e9e7;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 20px 12px;
+      font-size: clamp(13px, 1.5vw, 16px);
+      font-weight: bold;
+      line-height: 1.3;
+    }
+
+    .box:hover a {
+      color: #fff;
+    }
+
+    @media (max-width: 480px) {
+      .grid-box {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+      }
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/c9a2912041.js" crossorigin="anonymous"></script>
+  <script src="https://pl29757840.effectivecpmnetwork.com/20/2d/56/202d56608b097175c84cd535b010fb1f.js"></script>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">
+      <a href="/"><img src="https://imglur.com/get/XN4hTb.png" alt="Projectent"></a>
+    </div>
+    <div class="navbar">
+      <ul id="mobile">
+        <li id="ico-menu"><i class="fa-solid fa-bars"></i></li>
+      </ul>
+      <ul id="desktop-bar">
+        <li><a href="/">Página inicial</a></li>
+        <li><a href="/lancamentos">Lançamentos</a></li>
+        <li><a href="/generos">Gêneros</a></li>
+        <li><a href="/search">Pesquisar</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+      </ul>
+    </div>
+    <div class="menubar">
+      <div class="drawer">
+        <span class="drawer-close"><i class="fa-solid fa-close"></i></span>
+        <ul>
+          <li>
+            <form action="/search">
+              <input type="search" name="title" placeholder="Pesquisar...">
+              <input type="submit" value="Ir">
+            </form>
+          </li>
+          <li><a href="/">Página inicial</a></li>
+          <li><a href="/lancamentos">Lançamentos</a></li>
+          <li><a href="/generos">Gêneros</a></li>
+          <li><a href="/sobre">Sobre</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="content">
+      <h2 class="section-heading">Categorias</h2>
+      <div class="grid-box">
+        <% dados.forEach(item => { %>
+          <div class="box">
+            <a href="<%= item.url %>"><%= item.title %></a>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <h1>Projectent</h1>
+    <p>Este site não utiliza o próprio servidor para hospedar os vídeos.</p>
+    <p>Siga as nossas páginas do Facebook para mais informações.</p>
+  </div>
+
+  <script>
+    const menu = document.querySelector('#ico-menu');
+    const menuBar = document.querySelector('.menubar');
+    const drawerClose = document.querySelector('.drawer-close');
+
+    menu.addEventListener('click', () => menuBar.classList.add('showmenu'));
+    drawerClose.addEventListener('click', () => menuBar.classList.remove('showmenu'));
+    menuBar.addEventListener('click', (e) => {
+      if (e.target === menuBar) menuBar.classList.remove('showmenu');
+    });
+  </script>
+  <script src="/js/animations.js"></script>
+</body>
+</html>

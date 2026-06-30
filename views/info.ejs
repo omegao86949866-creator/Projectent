@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://imglur.com/get/r7vlDV.png">
+  <link rel="stylesheet" href="/css/base.css">
+  <title>Info - Projectent</title>
+  <style>
+    .info-card {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 28px;
+    }
+
+    .poster {
+      flex: 0 0 auto;
+      width: clamp(140px, 25%, 220px);
+    }
+
+    .poster img {
+      width: 100%;
+      border-radius: 8px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .details {
+      flex: 1 1 200px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .details p {
+      font-size: clamp(13px, 1.5vw, 16px);
+      line-height: 1.6;
+      color: #ccc;
+    }
+
+    .details p strong {
+      color: #e8e9e7;
+    }
+
+    .synopsis {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .synopsis h2 {
+      font-size: clamp(16px, 2vw, 22px);
+      margin-bottom: 10px;
+      color: #4ae2e7;
+    }
+
+    .synopsis p {
+      font-size: clamp(13px, 1.5vw, 16px);
+      line-height: 1.7;
+      text-align: justify;
+      color: #bbb;
+    }
+
+    .episodes-section h3 {
+      font-size: clamp(15px, 1.8vw, 20px);
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #0b6100;
+    }
+
+    .episode-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .episode-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2a2a2a;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: clamp(13px, 1.4vw, 15px);
+      transition: background-color 0.2s;
+    }
+
+    .episode-item:hover {
+      background-color: #333;
+    }
+
+    .episode-item a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #0b6100;
+      color: #fff;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 13px;
+      white-space: nowrap;
+      transition: background-color 0.2s;
+    }
+
+    .episode-item a:hover {
+      background-color: #4ae2e7;
+      color: #000;
+    }
+
+    @media (max-width: 480px) {
+      .info-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .poster {
+        width: 60%;
+        max-width: 200px;
+      }
+
+      .synopsis p {
+        text-align: left;
+      }
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/c9a2912041.js" crossorigin="anonymous"></script>
+  <script src="https://pl29757840.effectivecpmnetwork.com/20/2d/56/202d56608b097175c84cd535b010fb1f.js"></script>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">
+      <a href="/"><img src="https://imglur.com/get/XN4hTb.png" alt="Projectent"></a>
+    </div>
+    <div class="navbar">
+      <ul id="mobile">
+        <li id="ico-menu"><i class="fa-solid fa-bars"></i></li>
+      </ul>
+      <ul id="desktop-bar">
+        <li><a href="/">Página inicial</a></li>
+        <li><a href="/lancamentos">Lançamentos</a></li>
+        <li><a href="/search">Pesquisar</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+      </ul>
+    </div>
+    <div class="menubar">
+      <div class="drawer">
+        <span class="drawer-close"><i class="fa-solid fa-close"></i></span>
+        <ul>
+          <li>
+            <form action="/search">
+              <input type="search" name="title" placeholder="Pesquisar...">
+              <input type="submit" value="Ir">
+            </form>
+          </li>
+          <li><a href="/">Página inicial</a></li>
+          <li><a href="/lancamentos">Lançamentos</a></li>
+          <li><a href="/sobre">Sobre</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="info-card">
+      <div class="poster">
+        <img src="<%= dados.img %>" alt="<%= dados.titulo[0] %>">
+      </div>
+      <div class="details">
+        <p><strong>Título:</strong> <%= dados.titulo[0] %></p>
+        <p><strong>Categoria:</strong> <%= dados.genre %></p>
+        <p><strong>Lançamento:</strong> <%= dados.info[0][3] %><%= dados.info[0][4] %><%= dados.info[0][5] %><%= dados.info[0][6] %><%= dados.info[0][7] %></p>
+      </div>
+      <div class="synopsis">
+        <h2>Sinopse</h2>
+        <p><%= dados.sinopse %></p>
+      </div>
+    </div>
+
+    <div class="episodes-section">
+      <h3>Lista de Episódios</h3>
+      <div class="episode-list">
+        <% dados.epsisodio.forEach((item, index) => { %>
+          <div class="episode-item">
+            <span><%= item %></span>
+            <a href="/assistir?url=<%= dados.url[index] %>" target="_blank">
+              <i class="fa-solid fa-play"></i> Assistir
+            </a>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <h1>Projectent</h1>
+    <p>Este site não utiliza o próprio servidor para hospedar os vídeos.</p>
+  </div>
+
+  <script>
+    const menu = document.querySelector('#ico-menu');
+    const menuBar = document.querySelector('.menubar');
+    const drawerClose = document.querySelector('.drawer-close');
+
+    menu.addEventListener('click', () => menuBar.classList.add('showmenu'));
+    drawerClose.addEventListener('click', () => menuBar.classList.remove('showmenu'));
+    menuBar.addEventListener('click', (e) => {
+      if (e.target === menuBar) menuBar.classList.remove('showmenu');
+    });
+  </script>
+  <script src="/js/animations.js"></script>
+</body>
+</html>
