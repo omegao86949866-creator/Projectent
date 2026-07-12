@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://imglur.com/get/r7vlDV.png">
+  <link rel="stylesheet" href="/css/base.css">
+  <title>Assistir - Projectent</title>
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .player-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px 40px;
+      gap: 24px;
+    }
+
+    .back-link {
+      align-self: flex-start;
+      color: #4ae2e7;
+      text-decoration: none;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: opacity 0.2s;
+    }
+
+    .back-link:hover {
+      opacity: 0.75;
+    }
+
+    .video-container {
+      width: 100%;
+      max-width: 960px;
+      aspect-ratio: 16/9;
+      background-color: #000;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(0,0,0,0.7);
+    }
+
+    .video-container iframe {
+      width: 50%;
+      height: 90%;
+      border: none;
+      display: block;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    /* ── AD BANNER ── */
+    .ad-banner {
+      width: 100%;
+      max-width: 960px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ad-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: #444;
+      align-self: center;
+    }
+
+    .ad-frame {
+      width: 100%;
+      max-width: 468px;
+      background-color: #0e0e0e;
+      border: 1px solid #1e1e1e;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 60px;
+    }
+
+    .ad-divider {
+      width: 100%;
+      max-width: 960px;
+      border: none;
+      border-top: 1px solid #1a1a1a;
+    }
+
+    @media (max-width: 500px) {
+      .ad-frame {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">
+      <a href="/"><img src="https://imglur.com/get/XN4hTb.png" alt="Projectent"></a>
+    </div>
+    <div class="navbar">
+      <ul id="desktop-bar">
+        <li><a href="/dorama">Página inicial</a></li>
+        <li><a href="/pesquisardorama">Pesquisar</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="player-wrapper">
+
+    <a href="javascript:history.back()" class="back-link">← Voltar</a>
+
+    <!-- AD SLOT 1 — above video -->
+    <div class="ad-banner">
+      <span class="ad-label">Publicidade</span>
+      <div class="ad-frame">
+        <script>
+          atOptions = {
+            'key' : '1b3cb0b610aae2d5d29bb7aeb807eaca',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/1b3cb0b610aae2d5d29bb7aeb807eaca/invoke.js"></script>
+      </div>
+    </div>
+
+    <hr class="ad-divider">
+
+    <!-- VIDEO PLAYER -->
+    <div class="video-container">
+      <iframe src="assistirdorama?url=<%= dados %>" allowfullscreen></iframe>
+    </div>
+
+    <hr class="ad-divider">
+
+    <!-- AD SLOT 2 — below video -->
+    <div class="ad-banner">
+      <span class="ad-label">Publicidade</span>
+      <div class="ad-frame">
+        <script>
+          atOptions = {
+            'key' : '1b3cb0b610aae2d5d29bb7aeb807eaca',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/1b3cb0b610aae2d5d29bb7aeb807eaca/invoke.js"></script>
+      </div>
+    </div>
+
+    <!-- AD SLOT 3 — extra below -->
+    <div class="ad-banner">
+      <div class="ad-frame">
+        <script>
+          atOptions = {
+            'key' : '1b3cb0b610aae2d5d29bb7aeb807eaca',
+            'format' : 'iframe',
+            'height' : 60,
+            'width' : 468,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/1b3cb0b610aae2d5d29bb7aeb807eaca/invoke.js"></script>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
