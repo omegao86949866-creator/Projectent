@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="pt-ao">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="https://imglur.com/get/r7vlDV.png">
+  <link rel="stylesheet" href="/css/base.css">
+  <title>Projectent Animes - Pesquisar</title>
+  <style>
+    /* ── SEARCH HERO ── */
+    .search-hero {
+      background: linear-gradient(135deg, #0d1a0d 0%, #0b2a0b 50%, #141414 100%);
+      padding: 40px 20px 36px;
+      text-align: center;
+      border-bottom: 1px solid #1e3a1e;
+    }
+
+    .search-hero h1 {
+      font-size: clamp(22px, 4vw, 38px);
+      margin-bottom: 8px;
+      color: #fff;
+      letter-spacing: -0.5px;
+    }
+
+    .search-hero p {
+      color: #888;
+      font-size: clamp(13px, 1.5vw, 15px);
+      margin-bottom: 24px;
+    }
+
+    .search-form {
+      display: flex;
+      gap: 10px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .search-form input[type="search"] {
+      flex: 1;
+      padding: 13px 18px;
+      background-color: rgba(255,255,255,0.07);
+      border: 1px solid #333;
+      border-radius: 8px;
+      color: #e8e9e7;
+      font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    .search-form input[type="search"]::placeholder {
+      color: #666;
+    }
+
+    .search-form input[type="search"]:focus {
+      border-color: #4ae2e7;
+      box-shadow: 0 0 0 3px rgba(74, 226, 231, 0.2);
+    }
+
+    .search-form input[type="submit"] {
+      padding: 13px 26px;
+      background-color: #0b6100;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+      transition: background-color 0.2s, transform 0.15s;
+      white-space: nowrap;
+    }
+
+    .search-form input[type="submit"]:hover {
+      background-color: #4ae2e7;
+      color: #000;
+      transform: translateY(-1px);
+    }
+
+    /* ── GENRES SECTION ── */
+    .genres-section {
+      padding: 28px 0 12px;
+    }
+
+    .genres-section .section-heading {
+      margin-bottom: 20px;
+    }
+
+    .genre-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 4px 0;
+    }
+
+    /* ── RESULTS SECTION ── */
+    .results-section {
+      margin-top: 32px;
+    }
+
+    .results-count {
+      color: #888;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .results-count span {
+      color: #4ae2e7;
+      font-weight: bold;
+    }
+
+    .empty-msg {
+      text-align: center;
+      padding: 60px 0;
+      color: #555;
+    }
+
+    .empty-msg i {
+      font-size: 48px;
+      display: block;
+      margin-bottom: 16px;
+      color: #333;
+    }
+
+    .empty-msg p {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: #777;
+    }
+
+    .empty-msg small {
+      font-size: 13px;
+      color: #555;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/c9a2912041.js" crossorigin="anonymous"></script>
+  <script src="https://pl29757840.effectivecpmnetwork.com/20/2d/56/202d56608b097175c84cd535b010fb1f.js"></script>
+</head>
+<body>
+
+  <div class="header">
+    <div class="logo">
+      <a href="/"><img src="https://imglur.com/get/XN4hTb.png" alt="Projectent"></a>
+    </div>
+    <div class="navbar">
+      <ul id="mobile">
+        <li id="ico-menu"><i class="fa-solid fa-bars"></i></li>
+      </ul>
+      <ul id="desktop-bar">
+        <li><a href="/">Página inicial</a></li>
+        <li><a href="/lancamentos">Lançamentos</a></li>
+        <li><a href="/generos">Gêneros</a></li>
+        <li><a href="/search">Pesquisar</a></li>
+        <li><a href="/sobre">Sobre</a></li>
+      </ul>
+    </div>
+    <div class="menubar">
+      <div class="drawer">
+        <span class="drawer-close"><i class="fa-solid fa-close"></i></span>
+        <ul>
+          <li>
+            <form action="/search">
+              <input type="search" name="title" placeholder="Pesquisar...">
+              <input type="submit" value="Ir">
+            </form>
+          </li>
+          <li><a href="/">Página inicial</a></li>
+          <li><a href="/lancamentos">Lançamentos</a></li>
+          <li><a href="/generos">Gêneros</a></li>
+          <li><a href="/sobre">Sobre</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="search-hero">
+    <h1><i class="fa-solid fa-magnifying-glass" style="color:#4ae2e7;margin-right:10px;font-size:0.85em;"></i>Pesquisar</h1>
+    <p>Encontre animes, doramas e desenhos</p>
+    <form class="search-form" action="/search" method="get">
+      <input type="search" name="title" placeholder="Digite o título..." value="<%= typeof query !== 'undefined' ? query : '' %>">
+      <input type="submit" value="Pesquisar" class="btn-ripple">
+    </form>
+  </div>
+
+  <div class="main">
+
+    <div class="results-section">
+      <% if (dados && dados.length > 0) { %>
+        <p class="results-count"><span><%= dados.length %></span> resultado<%= dados.length !== 1 ? 's' : '' %> encontrado<%= dados.length !== 1 ? 's' : '' %></p>
+        <div class="box-cards">
+          <% dados.forEach(item => { %>
+            <div class="cards">
+              <a href="/info?url=<%= item.url %>?odr=1">
+                <img src="<%= item.src %>" alt="<%= item.title %>" loading="lazy">
+                <% if (item.episode) { %>
+                  <div class="legend episodio"><h4><%= item.episode %></h4></div>
+                <% } %>
+                <div class="legend titulo"><h3><%= item.title %></h3></div>
+              </a>
+            </div>
+          <% }) %>
+        </div>
+      <% } else { %>
+        <div class="empty-msg">
+          <i class="fa-solid fa-film"></i>
+          <p>Nenhum resultado encontrado</p>
+          <small>Tente pesquisar por outro título ou explore os gêneros acima</small>
+        </div>
+      <% } %>
+    </div>
+
+  </div>
+
+  <hr>
+
+  <div class="footer">
+    <h1>Projectent</h1>
+    <p>Este site não utiliza o próprio servidor para hospedar os vídeos.</p>
+  </div>
+
+  <script>
+    const menu = document.querySelector('#ico-menu');
+    const menuBar = document.querySelector('.menubar');
+    const drawerClose = document.querySelector('.drawer-close');
+
+    menu.addEventListener('click', () => menuBar.classList.add('showmenu'));
+    drawerClose.addEventListener('click', () => menuBar.classList.remove('showmenu'));
+    menuBar.addEventListener('click', (e) => {
+      if (e.target === menuBar) menuBar.classList.remove('showmenu');
+    });
+  </script>
+  <script src="/js/animations.js"></script>
+</body>
+</html>
