@@ -22,7 +22,7 @@ app.get('/', async (req, res) => {
 // lancamentos
 app.get('/lancamentos', async (req, res) => {
     const dados = await animes.listarAnimesEmLancamentos();
-res.render('lancamentos',{dados:dados})
+res.render('index',{dados:dados})
 });
 
 // info
@@ -102,19 +102,11 @@ app.get('/search',async(req, res) => {
 });
 
 //assistir
-/*app.get('/assistir',async(req, res) => {
+app.get('/assistir',async(req, res) => {
     const url = req.query.url
 
 const dados = await animes.assistirvideo(url);
-console.log(dados);
-res.render('assistir',{dados:dados})
-});
-*/
 
-app.get('/assistir', async (req, res) => {
-    const url = req.query.url
-    const dados = await animes.assistirvideo(url);
-    console.log(dados);
 res.render('assistir',{dados:dados})
 });
 

@@ -1,7 +1,7 @@
 const Scraper = require('./scraper');
 
 class Animes extends Scraper{
-    url = 'https://animesonline.io/';
+    url = 'https://animesdigital.org/';
 
     constructor(axios,cheerio){
        super(axios,cheerio) 
@@ -10,26 +10,26 @@ class Animes extends Scraper{
     async listarUtilmosEpisodios() {
         try {
             // 1. Busca o HTML
-            const { data } = await this.axios.get(this.url);
+            const { data } = await this.axios.get('https://animesdigital.org/home');
             // 2. Carrega o HTML no Cheerio
             const $ = this.cheerio.load(data);
             // 3. Extrai dados usando seletores CSS
         const dados = $.extract({
-          titulo: ['div.bixbox.bbnofrm div.listupd.normal div.excstf article div.bsx a div.tt h2'],
+          titulo: ['div.itemE a[title] div.title span.title_anime'],
           epsisodio: ['div.itemE a[title] div.title span.number'],
           img:[ {
-            selector: 'div.bixbox.bbnofrm div.listupd.normal div.excstf article div.bsx a div.limit img',
+            selector: 'div.itemE a[title] div.thumb img[title]',
             value:'src'
           }],
             url:[ {
-            selector: 'div.bixbox.bbnofrm div.listupd.normal div.excstf article div.bsx a',
+            selector: 'div.itemE a[title]',
             value:'href'
           }],
         });
         
         let episodes = []
         let estruture = {}
-        for(let i = 0; i<= dados.titulo.length-1;i++){
+        for(let i = 8; i<= dados.titulo.length-1;i++){
             estruture = {
                 title:dados.titulo[i],
                 episode:dados.epsisodio[i],
@@ -38,8 +38,7 @@ class Animes extends Scraper{
             };
             episodes.push(estruture);
             estruture = {}
-        }   
-            console.log(episodes)    
+        }        
             return episodes;
           } catch (error) {
             console.error(error);
@@ -117,26 +116,26 @@ class Animes extends Scraper{
     async listarAnimesEmLancamentos() {
      try {
          // 1. Busca o HTML
-         const { data } = await this.axios.get(this.url);
+         const { data } = await this.axios.get('https://animesdigital.org/home');
          // 2. Carrega o HTML no Cheerio
          const $ = this.cheerio.load(data);
          // 3. Extrai dados usando seletores CSS
      const dados = $.extract({
-       titulo: ['div.listupd div.excstf article div.bsx a div.tt h2'],
-       epsisodio: ['div.listupd div.excstf article div.bsx a div.limit div.bt div.btx'],
+       titulo: ['div.itemE a[title] div.title span.title_anime'],
+       epsisodio: ['div.itemE a[title] div.title span.number'],
        img:[ {
-         selector: 'div.listupd div.excstf article div.bsx a div.limit',
+         selector: 'div.itemE a[title] div.thumb img[title]',
          value:'src'
        }],
          url:[ {
-         selector: 'div.listupd div.excstf article div.bsx a',
+         selector: 'div.itemE a[title]',
          value:'href'
        }],
      });
      
      let episodes = []
      let estruture = {}
-     for(let i = 0; i<= 20;i++){
+     for(let i = 0; i<= 7;i++){
          estruture = {
              title:dados.titulo[i],
              episode:dados.epsisodio[i],
@@ -269,12 +268,11 @@ for(let i = 0; i<= dados.titulo.length-1;i++){
     // 3. Extrai dados usando seletores CSS
 const dados = $.extract({
   video:{
-    selector: 'iframe',
-    value:'data-src'
+    selector: 'iframe.metaframe.rptss.no-lazy',
+    value:'src'
   },
 });
 
-   
     return dados;
   } catch (error) {
     console.error(error);
