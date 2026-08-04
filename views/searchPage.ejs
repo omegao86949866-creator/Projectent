@@ -174,7 +174,7 @@
     <h1><i class="fa-solid fa-magnifying-glass" style="color:#4ae2e7;margin-right:10px;font-size:0.85em;"></i>Pesquisar</h1>
     <p>Encontre animes, doramas e desenhos</p>
     <form class="search-form" action="/search" method="get">
-      <input type="search" name="title" placeholder="Digite o título..." value="<%= typeof query !== 'undefined' ? query : '' %>">
+      <input type="search" name="s" placeholder="Digite o título..." value="<%= typeof query !== 'undefined' ? query : '' %>">
       <input type="submit" value="Pesquisar" class="btn-ripple">
     </form>
   </div>
