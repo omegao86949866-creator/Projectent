@@ -1,7 +1,7 @@
 const Scraper = require('./scraper');
 
 class Animes extends Scraper{
-    url = 'https://animesonline.io/';
+    url = 'https://animeshd.to/';
 
     constructor(axios,cheerio){
        super(axios,cheerio) 
@@ -15,14 +15,14 @@ class Animes extends Scraper{
             const $ = this.cheerio.load(data);
             // 3. Extrai dados usando seletores CSS
         const dados = $.extract({
-          titulo: ['div.bixbox.bbnofrm div.listupd.normal div.excstf article div.bsx a div.tt h2'],
+          titulo: ['article.item.tvshows div.data h3'],
           epsisodio: ['div.itemE a[title] div.title span.number'],
           img:[ {
-            selector: 'div.bixbox.bbnofrm div.listupd.normal div.excstf article div.bsx a div.limit img',
+            selector: 'article.tvshows div.poster img',
             value:'src'
           }],
             url:[ {
-            selector: 'div.bixbox.bbnofrm div.listupd.normal div.excstf article div.bsx a',
+            selector: 'article.tvshows div.poster a',
             value:'href'
           }],
         });
@@ -37,7 +37,7 @@ class Animes extends Scraper{
                 url:dados.url[i]
             };
             episodes.push(estruture);
-            estruture = {}
+            estruture = {};
         }   
             console.log(episodes)    
             return episodes;
@@ -270,7 +270,7 @@ for(let i = 0; i<= dados.titulo.length-1;i++){
 const dados = $.extract({
   video:{
     selector: 'iframe',
-    value:'data-src'
+    value:'src'
   },
 });
 
