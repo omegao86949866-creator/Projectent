@@ -1,7 +1,7 @@
 const Scraper = require('./scraper');
 
 class Animes extends Scraper{
-    url = 'https://animeshd.to/';
+    url = 'https://animesonline.cloud/';
 
     constructor(axios,cheerio){
        super(axios,cheerio) 
@@ -15,20 +15,20 @@ class Animes extends Scraper{
             const $ = this.cheerio.load(data);
             // 3. Extrai dados usando seletores CSS
         const dados = $.extract({
-          titulo: ['article.item.tvshows div.data h3'],
+          titulo: ['article.item div.data h3'],
           img:[ {
-            selector: 'article.tvshows div.poster img',
+            selector: 'article.item div.poster img',
             value:'src'
           }],
             url:[ {
-            selector: 'article.tvshows div.poster a',
+            selector: 'article.item div.data h3 a',
             value:'href'
           }],
         });
         
         let episodes = []
         let estruture = {}
-        for(let i = 20; i<= dados.titulo.length-1;i++){
+        for(let i = 0; i<= 5;i++){
             estruture = {
                 title:dados.titulo[i],
                 src:dados.img[i],
@@ -120,14 +120,14 @@ class Animes extends Scraper{
          const $ = this.cheerio.load(data);
          // 3. Extrai dados usando seletores CSS
      const dados = $.extract({
-       titulo: ['article.item.tvshows div.data h3'],
-       epsisodio: ['div.listupd div.excstf article div.bsx a div.limit div.bt div.btx'],
+       titulo: ['div.animation-2 article.item div.data h3'],
+       epsisodio: ['div.animation-2 article.item a div.limit div.bt div.btx'],
        img:[ {
-         selector: 'article.tvshows div.poster img',
+         selector: 'div.animation-2 article div.poster img',
          value:'src'
        }],
          url:[ {
-         selector: 'article.tvshows div.poster a',
+         selector: 'div.animation-2 article.item div.poster div.season_m a',
          value:'href'
        }],
      });
@@ -144,7 +144,7 @@ class Animes extends Scraper{
          episodes.push(estruture);
          estruture = {}
      }
-     
+     console.log(episodes)
          return episodes;
        } catch (error) {
          console.error(error);
@@ -193,7 +193,7 @@ class Animes extends Scraper{
     async informe(url) {
       try {
         // 1. Busca o HTML
-        const { data } = await this.axios.get(url);
+        const { data } = await this.axios.get(url+'#episodes');
         // 2. Carrega o HTML no Cheerio
         const $ = this.cheerio.load(data);
         // 3. Extrai dados usando seletores CSS
@@ -202,13 +202,13 @@ class Animes extends Scraper{
         info: ['div.extra span.date'],
         genre: ['div.sgeneros'],
         sinopse: 'div.wp-content p',
-        epsisodio: ['div.episodiotitle a'],
+        epsisodio: ['h3.episode-title'],
         img: {
           selector: 'div.poster img',
           value: 'src'
         },
         url: [{
-          selector: 'div.episodiotitle a',
+          selector: 'div.episode-card a',
           value: 'href'
         }],
       });
@@ -257,7 +257,7 @@ for(let i = 0; i<= dados.titulo.length-1;i++){
   }
 }
 
-    async assistirvideo(url) {
+async assistirvideo(url) {
   try {
     // 1. Busca o HTML
     const { data } = await this.axios.get(url);
@@ -265,13 +265,22 @@ for(let i = 0; i<= dados.titulo.length-1;i++){
     const $ = this.cheerio.load(data);
     // 3. Extrai dados usando seletores CSS
 const dados = $.extract({
-  video:{
-    selector: 'iframe',
+  title:'iframe',
+    img:{
+    selector: 'div.div-mypopads-protector-iframe img',
+    value:'src'
+  },
+  link:{
+    selector: 'div.div-mypopads-protector-iframe a',
+    value:'href'
+  },
+    video:{
+    selector: 'source',
     value:'src'
   },
 });
 
-   
+    console.log(dados);
     return dados;
   } catch (error) {
     console.error(error);
