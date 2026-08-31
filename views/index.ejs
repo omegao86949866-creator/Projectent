@@ -50,11 +50,11 @@
 
   <div class="main">
     <div class="container">
-      <h2 class="section-heading">Popular hoje</h2>
+      <h2 class="section-heading">Animes Adicionados!</h2>
       <div class="box-cards">
         <% dados.forEach(item => { %>
           <div class="cards">
-            <a href="/assistir?url=<%= item.url %>" target="_blank">
+            <a href="/info?url=<%= item.url %>" target="">
               <img src="<%= item.src %>" alt="<%= item.title %>" loading="lazy">
               <div class="legend episodio"><h4><%= item.episode %></h4></div>
               <div class="legend titulo"><h3><%= item.title %></h3></div>
