@@ -153,13 +153,13 @@ class Animes extends Scraper{
 
     async filtrarTitulo(){
         try {
+          const { data } = await axios.get(this.url+'s='+title);
             // 1. Busca o HTML
-            const { data } = await axios.get('https://animesdigital.org/search/'+title);
             // 2. Carrega o HTML no Cheerio
             const $ = cheerio.load(data);
             // 3. Extrai dados usando seletores CSS
         const dados = $.extract({
-          titulo: ['div.itemA a[title] div.title span.title_anime'],
+          titulo: ['div.result-item a[title] div.title span.title_anime'],
           epsisodio: ['div.itemA a[title] div.title span.number'],
           img:[ {
             selector: 'div.itemA a[title] div.thumb img[title]',
@@ -221,19 +221,19 @@ class Animes extends Scraper{
     async search(title) {
   try {
     // 1. Busca o HTML
-    const { data } = await this.axios.get(`https://topanimes.net/?s=${title}`);
+    const { data } = await this.axios.get(`${this.url}?s=${title}`);
     // 2. Carrega o HTML no Cheerio
     const $ = this.cheerio.load(data);
     // 3. Extrai dados usando seletores CSS
 const dados = $.extract({
-  titulo: ['result-item article div.title'],
-  epsisodio: ['div.listupd article div.bsx a div.tt h2'],
+  titulo: ['div.result-item article div.details div.title a'],
+  epsisodio: ['div.result-item article div.bsx a div.tt h2'],
   img:[ {
-    selector: 'div.listupd article div.bsx a div.limit img',
+    selector: 'div.result-item article div.image div a img',
     value:'src'
   }],
     url:[ {
-    selector: 'div.listupd article div.bsx a',
+    selector: 'div.result-item article div.details div.title a',
     value:'href'
   }],
 });
