@@ -1,7 +1,7 @@
 const Scraper = require('./scraper');
 
 class Animes extends Scraper{
-    url = 'https://animesonline.cloud/';
+    url = 'https://animesonlinehdk.com/';
 
     constructor(axios,cheerio){
        super(axios,cheerio) 
@@ -15,20 +15,20 @@ class Animes extends Scraper{
             const $ = this.cheerio.load(data);
             // 3. Extrai dados usando seletores CSS
         const dados = $.extract({
-          titulo: ['article.item div.data h3'],
+          titulo: ['div.items.normal article.item.tvshows div.data h3'],
           img:[ {
-            selector: 'article.item div.poster img',
+            selector: 'div.items.normal article.item.tvshows div.poster img',
             value:'src'
           }],
             url:[ {
-            selector: 'article.item div.data h3 a',
+            selector: 'div.items.normal article.item.tvshows div.poster a',
             value:'href'
           }],
         });
         
         let episodes = []
         let estruture = {}
-        for(let i = 0; i<= 5;i++){
+        for(let i = 0; i<= 10;i++){
             estruture = {
                 title:dados.titulo[i],
                 src:dados.img[i],
@@ -202,13 +202,13 @@ class Animes extends Scraper{
         info: ['div.extra span.date'],
         genre: ['div.sgeneros'],
         sinopse: 'div.wp-content p',
-        epsisodio: ['h3.episode-title'],
+        epsisodio: ['ul.episodios li div.episodiotitle a'],
         img: {
           selector: 'div.poster img',
           value: 'src'
         },
         url: [{
-          selector: 'div.episode-card a',
+          selector: 'ul.episodios li div.episodiotitle a',
           value: 'href'
         }],
       });
@@ -275,13 +275,32 @@ const dados = $.extract({
     value:'href'
   },
     video:{
-    selector: 'source',
+    selector: 'iframe.metaframe',
     value:'src'
   },
 });
+$('header').remove();
+$('ins').remove();
+$('aside').remove();
+$('div.item a').remove();
+$('div.dt_social_single').remove();
+$('input').remove();
+$('textarea').remove();
+$('h3').remove();
+$('.comments-area').remove();
+$('.sheader').remove();
+$('.copy').remove();
+$('.sidebar').remove();
+$('.sbox').remove();
+$('.fcmpbox').remove();
+$('.module_single_ads').remove();
+$('link[type=image/x-icon]').remove();
 
-    console.log(dados);
-    return dados;
+const text = $('html');
+console.log(text.html());
+    return text.html();
+   // console.log(dados);
+  //return dados;
   } catch (error) {
     console.error(error);
   }
