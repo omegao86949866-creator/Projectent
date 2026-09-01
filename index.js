@@ -111,11 +111,18 @@ res.render('assistir',{dados:dados})
 });
 */
 
+app.get('/assistir2', async (req, res) => {
+    const url = req.query.url
+    const dados = await animes.assistirvideo(url);
+    console.log(url);
+res.send(dados);
+});
+
 app.get('/assistir', async (req, res) => {
     const url = req.query.url
     const dados = await animes.assistirvideo(url);
-    console.log(dados);
-res.render('assistir',{dados:dados})
+    console.log(url);
+res.render('assistir',{dados:dados,url:url})
 });
 
 //sobre
