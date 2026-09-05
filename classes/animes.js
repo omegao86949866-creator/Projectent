@@ -134,7 +134,7 @@ class Animes extends Scraper{
      
      let episodes = []
      let estruture = {}
-     for(let i = 0; i<= 19;i++){
+     for(let i = 0; i<= 10;i++){
          estruture = {
              title:dados.titulo[i],
              episode:dados.epsisodio[i],

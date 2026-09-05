@@ -94,11 +94,8 @@ app.get('/search',async(req, res) => {
   if(!(requisition == undefined)){
     newReq = requisition.replace(/ /g, '+');
   }
-  const [dados, generos] = await Promise.all([
-    animes.search(newReq),
-    animes.listarGeneros()
-  ]);
-  res.render('searchPage', { dados: dados, generos: generos });
+  const dados = animes.search(newReq);
+  res.render('searchPage', { dados: dados});
 });
 
 //assistir

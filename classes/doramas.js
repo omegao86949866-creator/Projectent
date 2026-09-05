@@ -115,7 +115,7 @@ const text = $('html');
   }
 }
 
-    async search(title) {
+async search(title) {
   try {
     // 1. Busca o HTML
     const { data } = await this.axios.get(`https://doramasonline.net/?s=${title}`);
